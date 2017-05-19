@@ -1,0 +1,28 @@
+function pascalsTriangle(levels){
+		var i = 0;
+    console.log(levels);
+    var out = [1];
+    while(i < levels-1){
+    		
+ 				
+    		let j = out.length - 1 - i;
+        let temp = out.length;
+        while(j < temp){
+        	if(j === temp-1-i){
+        	out.push(out[j]);
+          }
+          
+          else{
+          	out[out.length-1]+= out[j];	
+          }
+          out.push(out[j]);
+          j++;
+          }
+      
+        i++;
+        
+        }
+        
+   return out;
+    
+}
