@@ -1,6 +1,6 @@
 BST = function() {
   this.root = null;
-	this.num = null;
+  this.num = null;
   //True if duplicate value is passed into tree 
   this.dubBool = false;
 
@@ -159,8 +159,28 @@ BST = function() {
 
 
 
-
-
+  // in order traversal
+  this.inOrder = function(){
+   
+   var out = [];
+   function traverse(node){
+      if(node == null){
+          return out;
+      }
+    
+      traverse(node.leftchild);
+      out.push(node.num);
+      traverse(node.rightchild);
+      return out;
+    
+   }
+   var current = this.root;
+   
+   
+   return traverse(current);
+   
+   
+   }
 
 
   var Node = function(num) {
