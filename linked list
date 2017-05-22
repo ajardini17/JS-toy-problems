@@ -1,0 +1,75 @@
+LinkedList = function() {
+  this.head = null;
+  this.tail = null;
+  var Node = function(num) {
+    this.next = null;
+    this.num = num;
+
+
+  };
+  this.add = function(num) {
+    if (this.head == null) {
+      this.head = new Node(num);
+      return this.head;
+    }
+
+    if (this.tail == null) {
+      this.tail = new Node(num);
+      this.head.next = this.tail;
+      return this.tail;
+    }
+
+    this.tail.next = new Node(num);
+    this.tail = this.tail.next;
+    this.tail.next = null;
+    return this.tail;
+
+
+
+  }
+
+  this.insert = function(num) {
+    var iter = this.head;
+    var prev;
+    if (iter.num > num) {
+      this.head = new Node(num);
+      this.head.next = iter;
+      return this.head;
+    }
+    //
+    while (iter !== null) {
+      if (iter.num >= num) {
+        this.stuff = new Node(num);
+        this.stuff.next = prev.next;
+        prev.next = this.stuff;
+        return this.stuff;
+
+      }
+      prev = iter;
+      iter = iter.next;
+    }
+    this.stuff = new Node(num);
+    prev.next = this.stuff;
+    this.tail = this.stuff;
+    return this.stuff;
+
+
+  }
+
+
+
+
+
+}
+
+LinkedList.prototype.show = function() {
+  var element = this.head;
+  var i = 0;
+  while (element !== null) {
+    console.log(element.num);
+    element = element.next;
+    i++;
+  }
+  console.log('Length of list: ')
+  return i;
+}
