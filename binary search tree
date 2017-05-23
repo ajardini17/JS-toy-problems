@@ -1,5 +1,7 @@
 BST = function() {
 
+//Changes to commit
+
   
   function height(node){
   if(node==null){
