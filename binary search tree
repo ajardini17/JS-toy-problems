@@ -1,0 +1,160 @@
+BST = function() {
+
+  
+  function height(node){
+  if(node==null){
+  		return 0;
+  }
+  return node.height;
+  };
+  
+  function getBalance(node){
+  	if(node==null){
+        return 0;
+    }
+    return height(node.left) - height(node.right);
+    }
+  function size(node){
+  if(node== null)
+      return 0;
+  
+  return node.size;
+  }
+    
+   var rightRotate=function(node){
+		let x = node.leftchild;
+    let right = x.rightchild;
+    
+    // rotation
+    x.rightchild = node;
+    node.leftchild = right;
+    
+    node.height = 			Math.max(height(node.leftchild),height(node.rightchild))+1;
+    x.height = Math.max(height(x.rightchild),height(x.leftchild))+1;
+  
+   node.size = size(node.leftchild)+size(node.rightchild)+1;
+   x.size = size(x.leftchild)+size(x.rightchild)+1;
+    return x;
+
+};
+
+	var leftRotate = function(node){
+		let y = node.rightchild;
+    let left = y.leftchild;
+   
+    //rotation
+   	y.leftchild = node;
+    node.rightchild = left;
+    
+    node.height = Math.max(height(node.leftchild),height(node.rightchild));
+		y.height = Math.max(height(y.leftchild),height(y.rightchild));
+    
+    
+node.size = size(node.leftchild)+size(node.rightchild)+1;
+   y.size = size(y.leftchild)+size(y.rightchild)+1;
+   
+    return y;
+}
+  
+
+
+this.add = function(node,num,out){
+  		if(node==null){
+      	
+      		return new Node();
+      }
+      if(num < node.num){
+      	node.leftchild = add(node.leftchild,num,out);
+      }
+      else if(num > node.num){
+      	node.rightchild = add(node.rightchild,num,out);
+        out += size(node.leftchild)+1;
+      }
+      else {
+      node.size+=1;
+      return node;
+      }
+      
+      
+      node.height = Math.max(height(node.leftchild),height(node.rightchild));
+      node.size = size(node.leftchild)+size(node.rightchild)+1;
+      var balance = getBalance(node);
+      if(balance > 1 && num < node.leftchild.num)
+      	return rightRotate(node);
+      
+      if(balance < -1 && num > node.rightchild.num)
+      	return leftRotate(node);
+        
+      if(balance > 1 && num >node.leftchid.num){
+      		node.leftchild = leftRotate(node.leftchild);
+          return rightRotate(node);
+         
+      }
+      if(balance<-1 && num < node.rightchild.num){
+      	node.rightchild = rightRotate(node.rightchild);
+        return leftRotate(node);
+      }
+      
+      return node;
+ };
+ 
+ 
+ 
+ 
+  
+
+
+var Node = function(num) {
+  this.num = num;
+  this.leftchild = null;
+  this.rightchild = null;
+  this.height = 1;
+  this.size = 1;
+
+		}
+    
+    
+   this.inOrder = function(){
+   
+   var out = [];
+   function traverse(node,arr){
+   		if(node== null){
+      		return arr;
+      }
+    
+      traverse(node.leftchild,arr);
+      arr.push(node.num);
+      traverse(node.rightchild,arr);
+      return arr;
+      	
+   
+   }
+   var current = this.root;
+   
+   
+   return traverse(current,out);
+   
+   }
+
+};
+
+BST.prototype.smaller=function(arr){
+		
+    var bst = new BST();
+  
+    
+    for(var i = arr.length-1;i>=0;i--){
+    		arr[i]=bst.add(arr[i]);
+    		
+    
+    
+    }
+    return arr;
+
+
+}
+
+
+var test= new BST();
+test.add(4);
+console.log(test);
